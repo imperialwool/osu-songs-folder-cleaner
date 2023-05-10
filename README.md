@@ -1,4 +1,6 @@
 # osu! Songs Folder Cleaner (O!SFC)
+[![AppVeyor](https://img.shields.io/appveyor/build/toxichead/osu-songs-folder-cleaner?label=windows%20build)](https://ci.appveyor.com/project/toxichead/osu-songs-folder-cleaner)
+
 Easy to use cleaner for osu!'s Songs folder.
 
 ![image](https://github.com/toxichead/osu-songs-folder-cleaner/assets/55358751/00d56e78-620f-4e5c-8d72-486f68e6604b)
