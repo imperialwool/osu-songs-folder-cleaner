@@ -1,0 +1,13 @@
+version: '1.0.{build}'
+
+image: Visual Studio 2019
+
+before_build:
+  - pip install pyinstaller colorama -y
+
+build_script:
+  - python -m PyInstaller o!sfc.py --icon o!sfc.ico --onefile --name o!sfc
+
+artifacts:
+  - path: dist/o!sfc.exe
+    name: o!sfc
