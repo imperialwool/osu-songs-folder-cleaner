@@ -4,6 +4,11 @@ from colorama import Style
 from colorama import Fore as Color
 from colorama import init as ColoramaInit
 
+
+def multiEndsWith(text, folder): return any(item.endswith(text) for item in folder)
+def doubleEndsWith(lst, folder): return any(multiEndsWith(item, folder) for item in lst)
+    
+
 ColoramaInit(autoreset=True)
 
 print(Style.BRIGHT + Color.MAGENTA + "\n█▀█ █ █▀ █▀▀ █▀▀\n█▄█ ▄ ▄█ █▀░ █▄▄\n\n" + Color.RESET + Style.DIM + "by _Joey (imperialwool) | v0.1\ncontacts: linktr.ee/imperialwool\ngithub: https://github.com/toxichead/osu-songs-folder-cleaner\n\n" + Style.NORMAL)
@@ -13,9 +18,9 @@ except:
     print(Color.RED + "\n[X] Path not exists. Try again.\n\n" + Color.RESET)
     exit()
 
-def multiEndsWith(text, folder):   return any(item.endswith(text) for item in folder)
+detectImages = True if input("\n[>] Check for images in folders? (y for yes)\n> ").lower() in ['y', 'yes', 'д', 'да'] else False
 
-text4input = Color.RED + "This script will delete empty, useless and duplicate folders on CODE's opinion. Deletion of files is not reversible!\nIf you are agree to start, enter \"IM AGREE TO GIVE MY SOUL TO BTMC\"\n> " + Color.RESET
+text4input = Color.RED + "\nThis script will delete empty, useless and duplicate folders on CODE's opinion. Deletion of files is not reversible!\nIf you are agree to start, enter \"IM AGREE TO GIVE MY SOUL TO BTMC\"\n> " + Color.RESET
 if input(text4input) != "IM AGREE TO GIVE MY SOUL TO BTMC":
     print("\n[X] Ok. Exiting...\n\n")
     exit()
@@ -27,28 +32,29 @@ print(
 )
 for beatmap in beatmapsFolder:
     beatmapFiles = os.listdir(path + "/" + beatmap)
+    Mp3, Osu, Images = multiEndsWith(".mp3", beatmapFiles), multiEndsWith(".osu", beatmapFiles), doubleEndsWith(['.jpg', '.jpeg', '.png'], beatmapFiles)
     
-    if multiEndsWith(".mp3", beatmapFiles) and multiEndsWith(".osu", beatmapFiles):
+    if Mp3 and Osu and (not detectImages or Images):
         print(f"[.] {beatmap} is ok.")
     else:
-        Mp3, Osu = multiEndsWith(".mp3", beatmapFiles), multiEndsWith(".osu", beatmapFiles)
-        toPrint = f"[V] {beatmap} is missing"
-        if Mp3 and Osu: toPrint += " mp3 and osu files"
-        elif Mp3:       toPrint += " mp3 file"
-        else:           toPrint += " osu files"
+        toPrint = f"[V] {beatmap} is missing: "
+        if not Mp3: toPrint += "mp3, "
+        if not Osu: toPrint += "osu files, "
+        if not Images and detectImages: toPrint += "images, "
+        toPrint = toPrint[:-2]
         
         try:
             shutil.rmtree(path + "/" + beatmap)
-            print(Color.GREEN + toPrint + ', so folder deleted.' + Color.RESET)
+            print(Color.GREEN + toPrint + '. So, I deleted folder.' + Color.RESET)
         except:
-            print(Color.RED + toPrint + ', but I cannot delete folder.' + Color.RESET)
+            print(Color.RED + toPrint + '. But I cannot delete folder.' + Color.RESET)
         
 print(Color.CYAN + "\n\n[.] Finding duplicates..." + Color.RESET)  
 beatmapsFolder = os.listdir(path)
 allBeatmaps = [beatmap.partition(" ")[0] for beatmap in beatmapsFolder]
 duplicates = list(set([beatmapId for beatmapId in allBeatmaps if allBeatmaps.count(beatmapId) > 1]))
 
-print(Color.CYAN + f"\n\n[.] Found {len(duplicates)} duplicates. Deleting...\n" + Color.RESET) 
+print(Color.CYAN + f"\n\n[.] Found {len(duplicates)} duplicates. Deleting...\n" + Color.RESET if len(duplicates) > 0 else Color.CYAN + f"\n\n[.] Found {len(duplicates)} duplicates.\n" + Color.RESET) 
 for beatmap in beatmapsFolder:
     beatmapId = beatmap.partition(" ")[0]
     if beatmapId in duplicates:
