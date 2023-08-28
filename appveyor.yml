@@ -3,9 +3,9 @@ version: 'build{build}'
 image: Visual Studio 2019
 
 before_build:
-  - python --version
-  - python -m pip install --no-cache-dir --upgrade pip setuptools wheel --use-deprecated
-  - python -m pip install --no-cache-dir fbs pyqt6 pyqt6-tools PyInstaller ini-parser --use-deprecated
+  - python -m pip install --no-cache-dir --upgrade pip setuptools wheel
+  - python -m pip install pyqt6 --no-cache-dir --config-settings --confirm-license= --verbose
+  - python -m pip install fbs pyqt6-tools PyInstaller ini-parser --no-cache-dir
 
 build_script:
   - python -m PyInstaller -w o!sfc.py --icon o!sfc.ico --onefile --name o!sfc 
