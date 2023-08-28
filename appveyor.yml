@@ -5,7 +5,7 @@ image: Ubuntu
 platform: x64
 
 before_build:
-  - sudo apt install python3 python3-pip -y
+  - sudo apt install python3 python3-pip qt6-base-dev -y
   - pip3 install --no-cache-dir --upgrade pip setuptools wheel
   - pip3 install pyqt6 --no-cache-dir
   - pip3 install fbs pyqt6-tools PyInstaller ini-parser --no-cache-dir
