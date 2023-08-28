@@ -1,6 +1,6 @@
 version: 'build{build}'
 
-image: Visual Studio 2019
+image: Visual Studio 2022
 
 before_build:
   - python -m pip install --no-cache-dir --upgrade pip setuptools wheel
