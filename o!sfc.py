@@ -8,7 +8,7 @@ import platform
 import webbrowser
 from PyQt6 import QtCore, QtGui, QtWidgets, uic
 # DONT FORGET TO CHANGE THIS VAR U STOOPIT TOASTER
-BUILD_VERSION = 16
+BUILD_VERSION = 17
 
 
 # █░░ █▀█ █▀▀   █░█░█ █ █▄░█ █▀▄ █▀█ █░█░█
