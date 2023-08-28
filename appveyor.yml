@@ -3,7 +3,7 @@ version: 'build{build}'
 image: Ubuntu
 
 before_build:
-  - apt install python3 python3-pip -y
+  - sudo apt install python3 python3-pip -y
   - python -m pip install --no-cache-dir --upgrade pip setuptools wheel
   - python -m pip install pyqt6 --no-cache-dir --config-settings --confirm-license= --verbose
   - python -m pip install fbs pyqt6-tools PyInstaller ini-parser --no-cache-dir
