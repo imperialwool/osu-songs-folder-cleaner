@@ -3,8 +3,8 @@ version: 'build{build}'
 image: Visual Studio 2019
 
 before_build:
-  - python -m pip install --upgrade pip setuptools wheel
-  - pip install fbs pyqt6 pyqt6-tools PyInstaller ini-parser
+  - python -m pip install --no-cache-dir --upgrade pip setuptools wheel
+  - python -m pip install --no-cache-dir fbs pyqt6 pyqt6-tools PyInstaller ini-parser
 
 build_script:
   - python -m PyInstaller -w o!sfc.py --icon o!sfc.ico --onefile --name o!sfc 
